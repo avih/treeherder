@@ -28,14 +28,6 @@ os.environ.setdefault("DJANGO_SETTINGS_MODULE", "treeherder.settings")
 from django.core.wsgi import get_wsgi_application
 from treeherder.webapp.whitenoise_custom import CustomWhiteNoise
 
-try:
-    import newrelic.agent
-except ImportError:
-    newrelic = False
-
-if newrelic:
-    newrelic.agent.initialize()
-
 # This application object is used by any WSGI server configured to use this
 # file. This includes Django's development server, if the WSGI_APPLICATION
 # setting points here.
@@ -46,9 +38,6 @@ application = get_wsgi_application()
 # serve the Django static files at /static/ and also those in the directory
 # referenced by WHITENOISE_ROOT at the site root.
 application = CustomWhiteNoise(application)
-
-if newrelic:
-    application = newrelic.agent.wsgi_application()(application)
 
 # Fix django closing connection to MemCachier after every request:
 # https://code.djangoproject.com/ticket/11331
