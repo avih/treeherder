@@ -212,7 +212,7 @@ CELERY_DEFAULT_ROUTING_KEY = 'default'
 CELERYBEAT_SCHEDULE = {
     'fetch-push-logs-every-minute': {
         'task': 'fetch-push-logs',
-        'schedule': timedelta(minutes=1),
+        'schedule': timedelta(seconds=20),
         'relative': True,
         'options': {
             "queue": "pushlog"
