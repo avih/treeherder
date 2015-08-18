@@ -93,10 +93,10 @@ def test_ingest_hg_pushlog_already_stored(jm, initial_data, test_base_dir,
     first_and_second_push_json = json.dumps(
         {"lastpushid": 2, "pushes": {"1": first_push, "2": second_push}}
     )
-    second_push
+
     responses.add(
         responses.GET,
-        pushlog_fake_url,
+        pushlog_fake_url + "&startID=1",
         body=first_and_second_push_json,
         status=200, content_type='application/json',
         match_querystring=True)
